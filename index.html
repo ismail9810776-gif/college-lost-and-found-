@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>College Lost and Found</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    color: #222;
+}
+header {
+    background: #174ea6;
+    color: white;
+    text-align: center;
+    padding: 22px;
+}
+.container {
+    max-width: 600px;
+    margin: 25px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+}
+input, select, textarea, button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+input, select, textarea {
+    border: 1px solid #ccc;
+}
+button {
+    background: #174ea6;
+    color: white;
+    border: none;
+    font-size: 16px;
+}
+.item {
+    background: #eef4ff;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+    overflow-wrap: anywhere;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🎒 College Lost & Found</h1>
+<p>Lost something? Found something? Post it here!</p>
+</header>
+
+<div class="container">
+<h2>Report a Lost or Found Item</h2>
+
+<form id="itemForm">
+<input id="name" placeholder="Your Name" required>
+
+<select id="type" required>
+<option value="">Select Item Type</option>
+<option>Lost Item</option>
+<option>Found Item</option>
+</select>
+
+<input id="item" placeholder="Item Name" required>
+<input id="location" placeholder="Location" required>
+<textarea id="description" placeholder="Item Description" required></textarea>
+<input id="contact" placeholder="Contact Information" required>
+
+<button type="submit">Submit Report</button>
+</form>
+
+<h2>Recent Reports</h2>
+<div id="reports"></div>
+</div>
+
+<script>
+const form = document.getElementById("itemForm");
+const reports = document.getElementById("reports");
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const card = document.createElement("div");
+    card.className = "item";
+
+    const details = [
+        ["Reporter", document.getElementById("name").value],
+        ["Type", document.getElementById("type").value],
+        ["Item", document.getElementById("item").value],
+        ["Location", document.getElementById("location").value],
+        ["Description", document.getElementById("description").value],
+        ["Contact", document.getElementById("contact").value]
+    ];
+
+    details.forEach(function(detail) {
+        const line = document.createElement("p");
+        const label = document.createElement("strong");
+        label.textContent = detail[0] + ": ";
+        line.appendChild(label);
+        line.appendChild(document.createTextNode(detail[1]));
+        card.appendChild(line);
+    });
+
+    reports.prepend(card);
+    form.reset();
+});
+</script>
+
+</body>
+</html>
